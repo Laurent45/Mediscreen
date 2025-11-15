@@ -4,11 +4,11 @@ import com.openclassrooms.mediscreen_patient.exception.IdPatientException;
 import com.openclassrooms.mediscreen_patient.model.Patient;
 import com.openclassrooms.mediscreen_patient.repository.PatientRepository;
 import com.openclassrooms.mediscreen_patient.service.IPatientService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service

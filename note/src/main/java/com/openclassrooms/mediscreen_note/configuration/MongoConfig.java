@@ -1,11 +1,10 @@
 package com.openclassrooms.mediscreen_note.configuration;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
-
-import javax.annotation.PostConstruct;
 
 @Configuration
 @RequiredArgsConstructor
