@@ -1,9 +1,9 @@
 package com.openclassrooms.mediscreen_frontend.model;
 
+import jakarta.validation.constraints.Past;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Data

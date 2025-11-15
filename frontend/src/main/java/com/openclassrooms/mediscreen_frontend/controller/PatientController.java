@@ -2,6 +2,7 @@ package com.openclassrooms.mediscreen_frontend.controller;
 
 import com.openclassrooms.mediscreen_frontend.model.Patient;
 import com.openclassrooms.mediscreen_frontend.proxy.PatientProxy;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller

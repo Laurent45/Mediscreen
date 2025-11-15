@@ -1,12 +1,12 @@
 package com.openclassrooms.mediscreen_frontend.proxy;
 
 import com.openclassrooms.mediscreen_frontend.model.Patient;
+import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Validated
