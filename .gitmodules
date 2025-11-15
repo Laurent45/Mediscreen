@@ -1,9 +1,0 @@
-[submodule "Mediscreen_report"]
-	path = Mediscreen_report
-	url = https://github.com/Laurent45/Mediscreen_report.git
-[submodule "MediScreen_patient"]
-	path = MediScreen_patient
-	url = https://github.com/Laurent45/MediScreen_patient.git
-[submodule "Mediscreen_note"]
-	path = Mediscreen_note
-	url = https://github.com/Laurent45/Mediscreen_note.git
