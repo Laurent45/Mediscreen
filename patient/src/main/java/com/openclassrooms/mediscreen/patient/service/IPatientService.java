@@ -1,27 +1,29 @@
 package com.openclassrooms.mediscreen.patient.service;
 
-import com.openclassrooms.mediscreen.patient.model.Patient;
-
 import java.util.List;
+
+import com.openclassrooms.mediscreen.patient.model.Patient;
 
 public interface IPatientService {
 
     /**
      * Get all patient save in db
+     *
      * @return A list of Patient
      */
     List<Patient> getAllPatients();
 
     /**
      * Get a patient by id.
+     *
      * @param id an id's patient
-     * @return A patient. Return null if id's patient doesn't exist
-     * exists in db
+     * @return A patient. Return null if id's patient doesn't exist exists in db
      */
     Patient getPatient(Long id);
 
     /**
      * Save the patient given in parameter.
+     *
      * @param patient a patient to be saved
      * @return A patient saved
      */
@@ -29,6 +31,7 @@ public interface IPatientService {
 
     /**
      * Update information's patient.
+     *
      * @param patient a patient with new information
      * @param id id's patient to update
      * @return A patient updated
@@ -37,8 +40,8 @@ public interface IPatientService {
 
     /**
      * Delete a patient by id.
+     *
      * @param id id's patient
      */
     void deletePatient(Long id);
-
 }

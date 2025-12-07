@@ -1,13 +1,13 @@
 package com.openclassrooms.mediscreen.report.proxy;
 
-import com.openclassrooms.mediscreen.report.model.Note;
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.openclassrooms.mediscreen.report.model.Note;
 
-@FeignClient(name = "noteApi", url = "http://note:8080/api/v1" +
-        "/notePatient/")
+@FeignClient(name = "noteApi", url = "http://note:8080/api/v1" + "/notePatient/")
 public interface NoteProxy {
 
     @GetMapping("/allNotes")

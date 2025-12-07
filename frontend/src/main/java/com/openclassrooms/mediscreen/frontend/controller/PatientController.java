@@ -1,9 +1,9 @@
 package com.openclassrooms.mediscreen.frontend.controller;
 
-import com.openclassrooms.mediscreen.frontend.model.Patient;
-import com.openclassrooms.mediscreen.frontend.proxy.PatientProxy;
+import java.util.List;
+
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import com.openclassrooms.mediscreen.frontend.model.Patient;
+import com.openclassrooms.mediscreen.frontend.proxy.PatientProxy;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("ui/patient")
@@ -39,15 +42,18 @@ public class PatientController {
     }
 
     @PostMapping("/create")
-    public String createPatient(RedirectAttributes redirectAttributes
-            , @Valid Patient patient
-            , BindingResult result) {
+    public String createPatient(
+            RedirectAttributes redirectAttributes, @Valid Patient patient, BindingResult result) {
         if (result.hasErrors()) {
             return "patient/create";
         }
         patientProxy.savePatient(patient);
         String message =
-                "Created user <b>" + patient.getFirstName() + " " + patient.getLastName() + "</b> ✨.";
+                "Created user <b>"
+                        + patient.getFirstName()
+                        + " "
+                        + patient.getLastName()
+                        + "</b> ✨.";
         redirectAttributes.addFlashAttribute("patientCreated", message);
         return REDIRECT_INDEX;
     }
@@ -60,23 +66,28 @@ public class PatientController {
     }
 
     @PostMapping("/update/{id}")
-    public String updatePatient(RedirectAttributes redirectAttributes
-            , @PathVariable("id") Long id
-            , @Valid Patient patient
-            , BindingResult result) {
+    public String updatePatient(
+            RedirectAttributes redirectAttributes,
+            @PathVariable("id") Long id,
+            @Valid Patient patient,
+            BindingResult result) {
         if (result.hasErrors()) {
             return "patient/edit";
         }
         patientProxy.updatePatient(id, patient);
         String message =
-                "Updated  patient <b>" + patient.getFirstName() + " " + patient.getLastName() + "</b>.";
+                "Updated  patient <b>"
+                        + patient.getFirstName()
+                        + " "
+                        + patient.getLastName()
+                        + "</b>.";
         redirectAttributes.addFlashAttribute("patientUpdated", message);
         return REDIRECT_INDEX;
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePatient(@PathVariable("id") Long id,
-                                RedirectAttributes redirectAttributes) {
+    public String deletePatient(
+            @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         patientProxy.deletePatient(id);
         String message = "Delete patient <b>" + id + "</b>.";
         redirectAttributes.addFlashAttribute("patientDeleted", message);

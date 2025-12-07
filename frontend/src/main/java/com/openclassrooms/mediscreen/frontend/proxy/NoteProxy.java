@@ -1,10 +1,11 @@
 package com.openclassrooms.mediscreen.frontend.proxy;
 
-import com.openclassrooms.mediscreen.frontend.model.Note;
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.openclassrooms.mediscreen.frontend.model.Note;
 
 @FeignClient(name = "noteApi", url = "http://note:8080/api/v1/notePatient/")
 public interface NoteProxy {
@@ -22,8 +23,7 @@ public interface NoteProxy {
     Note create(@RequestBody Note note);
 
     @PutMapping("/update/{id}")
-    Note updateReportById(@PathVariable("id") String id,
-                          @RequestParam("report") String report);
+    Note updateReportById(@PathVariable("id") String id, @RequestParam("report") String report);
 
     @DeleteMapping("/remove/{id}")
     void deleteNoteById(@PathVariable("id") String id);

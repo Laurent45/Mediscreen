@@ -1,5 +1,13 @@
 package com.openclassrooms.mediscreen.frontend.controller;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.openclassrooms.mediscreen.frontend.dto.NoteDTO;
 import com.openclassrooms.mediscreen.frontend.dto.ReportDTO;
 import com.openclassrooms.mediscreen.frontend.model.Note;
@@ -7,14 +15,8 @@ import com.openclassrooms.mediscreen.frontend.model.Patient;
 import com.openclassrooms.mediscreen.frontend.proxy.NoteProxy;
 import com.openclassrooms.mediscreen.frontend.proxy.PatientProxy;
 import com.openclassrooms.mediscreen.frontend.proxy.ReportProxy;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("ui/note")
@@ -26,8 +28,7 @@ public class NoteController {
     private final ReportProxy reportProxy;
 
     @GetMapping("/{id}")
-    public String getNoteByPatientId(@PathVariable("id") Long patientId
-            , Model model) {
+    public String getNoteByPatientId(@PathVariable("id") Long patientId, Model model) {
         Patient patient = patientProxy.getPatientById(patientId);
         model.addAttribute("patient", patient);
         List<Note> notes = noteProxy.getNotesByPatientId(patientId);
@@ -39,24 +40,30 @@ public class NoteController {
     }
 
     @PostMapping("/createNote/{id}")
-    public String createNote(@PathVariable("id") Long patientId
-            , NoteDTO noteDTO
-            , RedirectAttributes redirectAttributes) {
-        Note note = new Note(noteDTO.getPractitionerName(),
-                patientId,
-                noteDTO.getReport(),
-                LocalDateTime.now());
+    public String createNote(
+            @PathVariable("id") Long patientId,
+            NoteDTO noteDTO,
+            RedirectAttributes redirectAttributes) {
+        Note note =
+                new Note(
+                        noteDTO.getPractitionerName(),
+                        patientId,
+                        noteDTO.getReport(),
+                        LocalDateTime.now());
         noteProxy.create(note);
         String message =
-                "Created note by " + noteDTO.getPractitionerName() + " at " + note.getCreated() + " ✨.";
+                "Created note by "
+                        + noteDTO.getPractitionerName()
+                        + " at "
+                        + note.getCreated()
+                        + " ✨.";
         redirectAttributes.addFlashAttribute("noteCreated", message);
         return "redirect:/ui/note/" + patientId;
     }
 
     @PostMapping("/update/{id}")
-    public String updateNote(@PathVariable("id") String id
-            , NoteDTO noteDTO
-            , RedirectAttributes redirectAttributes) {
+    public String updateNote(
+            @PathVariable("id") String id, NoteDTO noteDTO, RedirectAttributes redirectAttributes) {
         Note note = noteProxy.updateReportById(id, noteDTO.getReport());
         String message = "<b> Updated note </b>";
         redirectAttributes.addFlashAttribute("noteUpdated", message);
@@ -64,8 +71,7 @@ public class NoteController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteNote(@PathVariable("id") String id
-            , RedirectAttributes redirectAttributes) {
+    public String deleteNote(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
         Long patientId = noteProxy.getNoteById(id).getPatientId();
         noteProxy.deleteNoteById(id);
         String message = "<b> Deleted note </b>";

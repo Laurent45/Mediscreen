@@ -1,8 +1,8 @@
 package com.openclassrooms.mediscreen.report.model;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
+
+import lombok.Data;
 
 @Data
 public class Note {

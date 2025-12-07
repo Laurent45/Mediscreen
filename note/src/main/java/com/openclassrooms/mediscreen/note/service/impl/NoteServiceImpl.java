@@ -1,13 +1,15 @@
 package com.openclassrooms.mediscreen.note.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.openclassrooms.mediscreen.note.exception.NotFoundNoteException;
 import com.openclassrooms.mediscreen.note.model.Note;
 import com.openclassrooms.mediscreen.note.repository.NoteRepository;
 import com.openclassrooms.mediscreen.note.service.INoteService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -52,8 +54,8 @@ public class NoteServiceImpl implements INoteService {
     }
 
     private Note getNote(String id) {
-        return noteRepository.findById(id)
-                .orElseThrow(() -> new NotFoundNoteException("id document not" +
-                        " found: " + id));
+        return noteRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundNoteException("id document not" + " found: " + id));
     }
 }

@@ -1,16 +1,19 @@
 package com.openclassrooms.mediscreen.patient.model;
 
-import com.openclassrooms.mediscreen.patient.validation.GenderConstraint;
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.openclassrooms.mediscreen.patient.validation.GenderConstraint;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 
 @Entity
 @Data

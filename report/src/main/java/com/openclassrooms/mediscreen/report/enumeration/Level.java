@@ -7,6 +7,7 @@ public enum Level {
     EARLY_ONSET("Early onset");
 
     private final String level;
+
     Level(String level) {
         this.level = level;
     }

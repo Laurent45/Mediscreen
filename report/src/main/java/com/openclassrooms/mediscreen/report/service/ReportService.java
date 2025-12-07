@@ -1,17 +1,19 @@
 package com.openclassrooms.mediscreen.report.service;
 
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.openclassrooms.mediscreen.report.dto.ReportDTO;
 import com.openclassrooms.mediscreen.report.enumeration.Level;
 import com.openclassrooms.mediscreen.report.model.Note;
 import com.openclassrooms.mediscreen.report.model.Patient;
 import com.openclassrooms.mediscreen.report.proxy.NoteProxy;
 import com.openclassrooms.mediscreen.report.proxy.PatientProxy;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -20,19 +22,19 @@ public class ReportService {
     private final PatientProxy patientProxy;
     private final NoteProxy noteProxy;
 
-    private static final List<String> TRIGGER_TERMS = Arrays.asList(
-            "hémoglobine A1C",
-            "microalbumine",
-            "taille",
-            "poids",
-            "fumeur",
-            "anormal",
-            "cholestérol",
-            "vertige",
-            "rechute",
-            "réaction",
-            "anticorps"
-    );
+    private static final List<String> TRIGGER_TERMS =
+            Arrays.asList(
+                    "hémoglobine A1C",
+                    "microalbumine",
+                    "taille",
+                    "poids",
+                    "fumeur",
+                    "anormal",
+                    "cholestérol",
+                    "vertige",
+                    "rechute",
+                    "réaction",
+                    "anticorps");
 
     public ReportDTO getReportOfRisk(Long patientId) {
         Patient patient = patientProxy.getPatientById(patientId);
@@ -40,7 +42,8 @@ public class ReportService {
         int numberOfTrigger = getNumberOfTrigger(notes);
         Level level = getLevelOfRisk(numberOfTrigger, patient);
 
-        return new ReportDTO(patient.getFirstName(),
+        return new ReportDTO(
+                patient.getFirstName(),
                 patient.getLastName(),
                 LocalDate.now().getYear() - patient.getDateOfBirth().getYear(),
                 level.getLevel());
@@ -56,8 +59,7 @@ public class ReportService {
             if ((gender.equals("M") && trigger > 3) || (gender.equals("F") && trigger > 4)) {
                 return Level.EARLY_ONSET;
             }
-        }
-        else {
+        } else {
             if (trigger == 2) {
                 return Level.BORDERLINE;
             }
@@ -75,9 +77,14 @@ public class ReportService {
         Set<String> triggers = new HashSet<>();
 
         for (Note note : notes) {
-            triggers.addAll(TRIGGER_TERMS.stream()
-                    .filter(terms -> note.getReport().toLowerCase().contains(terms.toLowerCase()))
-                    .collect(Collectors.toList()));
+            triggers.addAll(
+                    TRIGGER_TERMS.stream()
+                            .filter(
+                                    terms ->
+                                            note.getReport()
+                                                    .toLowerCase()
+                                                    .contains(terms.toLowerCase()))
+                            .collect(Collectors.toList()));
         }
         return triggers.size();
     }

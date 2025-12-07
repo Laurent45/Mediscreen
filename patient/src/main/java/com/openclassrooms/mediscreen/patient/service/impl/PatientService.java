@@ -1,15 +1,18 @@
 package com.openclassrooms.mediscreen.patient.service.impl;
 
+import java.util.List;
+
+import jakarta.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.openclassrooms.mediscreen.patient.exception.IdPatientException;
 import com.openclassrooms.mediscreen.patient.model.Patient;
 import com.openclassrooms.mediscreen.patient.repository.PatientRepository;
 import com.openclassrooms.mediscreen.patient.service.IPatientService;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Log4j2
@@ -68,14 +71,17 @@ public class PatientService implements IPatientService {
     @Override
     @Transactional
     public void deletePatient(Long id) {
-        log.info("Delete a patient, id: " + id);
+        log.info("Delete a patient, id: {}", id);
         Patient patient = getPatientById(id);
         patientRepository.delete(patient);
     }
 
     private Patient getPatientById(Long id) {
-        return patientRepository.findById(id)
-                .orElseThrow(() -> new IdPatientException(String.format(
-                        "Patient id: %d doesn't exist", id)));
+        return patientRepository
+                .findById(id)
+                .orElseThrow(
+                        () ->
+                                new IdPatientException(
+                                        String.format("Patient id: %d doesn't exist", id)));
     }
 }

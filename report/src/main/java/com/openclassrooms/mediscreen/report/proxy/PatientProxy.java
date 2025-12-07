@@ -1,12 +1,13 @@
 package com.openclassrooms.mediscreen.report.proxy;
 
-import com.openclassrooms.mediscreen.report.model.Patient;
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
+import com.openclassrooms.mediscreen.report.model.Patient;
 
 @Validated
 @FeignClient(name = "patientApi", url = "http://patient:8081/api/v1/patient/")
@@ -17,5 +18,4 @@ public interface PatientProxy {
 
     @GetMapping("/{id}")
     Patient getPatientById(@PathVariable("id") Long id);
-
 }

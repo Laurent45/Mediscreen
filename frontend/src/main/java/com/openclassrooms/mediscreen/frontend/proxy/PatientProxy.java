@@ -1,13 +1,15 @@
 package com.openclassrooms.mediscreen.frontend.proxy;
 
-import com.openclassrooms.mediscreen.frontend.model.Patient;
+import java.util.List;
+
 import jakarta.validation.Valid;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.openclassrooms.mediscreen.frontend.model.Patient;
 
 @Validated
 @FeignClient(name = "patientApi", url = "http://patient:8081/api/v1/patient/")
@@ -23,10 +25,8 @@ public interface PatientProxy {
     ResponseEntity<String> savePatient(@RequestBody @Valid Patient patient);
 
     @PutMapping("/update/{id}")
-    Patient updatePatient(@PathVariable("id") Long id,
-                                 @RequestBody @Valid Patient patient);
+    Patient updatePatient(@PathVariable("id") Long id, @RequestBody @Valid Patient patient);
 
     @DeleteMapping("/delete/{id}")
     void deletePatient(@PathVariable("id") Long id);
-
 }

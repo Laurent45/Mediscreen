@@ -1,13 +1,13 @@
 package com.openclassrooms.mediscreen.patient.validation;
 
-import com.openclassrooms.mediscreen.patient.enumeration.Gender;
+import java.util.Arrays;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import java.util.Arrays;
 
-public class GenderValidation implements ConstraintValidator<GenderConstraint
-        , String> {
+import com.openclassrooms.mediscreen.patient.enumeration.Gender;
+
+public class GenderValidation implements ConstraintValidator<GenderConstraint, String> {
 
     @Override
     public void initialize(GenderConstraint constraintAnnotation) {
@@ -16,8 +16,6 @@ public class GenderValidation implements ConstraintValidator<GenderConstraint
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return Arrays
-                .stream(Gender.values())
-                .anyMatch(gender -> gender.getSymbol().equals(value));
+        return Arrays.stream(Gender.values()).anyMatch(gender -> gender.getSymbol().equals(value));
     }
 }

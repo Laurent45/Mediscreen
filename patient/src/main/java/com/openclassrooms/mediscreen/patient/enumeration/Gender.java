@@ -5,6 +5,7 @@ public enum Gender {
     MALE("M");
 
     private final String symbol;
+
     Gender(String gender) {
         this.symbol = gender;
     }
