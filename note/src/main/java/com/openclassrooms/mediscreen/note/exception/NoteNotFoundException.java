@@ -4,8 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NotFoundNoteException extends RuntimeException {
-    public NotFoundNoteException(String s) {
-        super(s);
+public class NoteNotFoundException extends RuntimeException {
+
+    public NoteNotFoundException(String id) {
+        super("Note not found with id: " + id);
     }
 }
