@@ -1,24 +1,22 @@
 package com.openclassrooms.mediscreen.report.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.openclassrooms.mediscreen.report.enumeration.Gender;
 
-@Data
-@AllArgsConstructor
-public class Patient {
+public record Patient(
+        Long id,
+        String firstName,
+        String lastName,
+        @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateOfBirth,
+        Gender gender,
+        String address,
+        String phone) {
 
-    private Long id;
-    private String firstName;
-    private String lastName;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfBirth;
-
-    private String gender;
-    private String address;
-    private String phone;
+    public int getAge() {
+        return (int) ChronoUnit.YEARS.between(dateOfBirth, LocalDate.now());
+    }
 }
